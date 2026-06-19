@@ -45,8 +45,6 @@ impl BitcoinSerialize for LegacyTransaction {
     }
 }
 
-
-
 // Legacy Bitcoin transaction
 #[derive(Debug, Clone)]
 pub struct LegacyTransaction {
@@ -182,13 +180,12 @@ impl TryFrom<&[u8]> for LegacyTransaction {
         let lock_time = u32::from_le_bytes(data[12..16].try_into().unwrap());
         let inputs = Vec::with_capacity(inputs_count as usize);
         let outputs = Vec::with_capacity(outputs_count as usize);
-        
-        
-        Ok(LegacyTransaction { 
-            version, 
-            inputs, 
-            outputs, 
-            lock_time
+
+        Ok(LegacyTransaction {
+            version,
+            inputs,
+            outputs,
+            lock_time,
         })
     }
 }
