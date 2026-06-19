@@ -184,6 +184,11 @@ impl TryFrom<&[u8]> for LegacyTransaction {
         let outputs = Vec::with_capacity(outputs_count as usize);
         
         
-        Ok(LegacyTransaction { version, inputs, outputs, lock_time})
+        Ok(LegacyTransaction { 
+            version, 
+            inputs, 
+            outputs, 
+            lock_time
+        })
     }
 }
