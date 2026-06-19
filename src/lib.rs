@@ -30,10 +30,8 @@ impl<T> Point<T> {
 
 // Custom serialization for Bitcoin transaction
 pub trait BitcoinSerialize {
-    fn serialize(&self) -> Vec<u8> {
-        // TODO: Implement serialization to bytes
-        self.serialize()
-    }
+    fn serialize(&self) -> Vec<u8>;
+    // TODO: Implement serialization to bytes
 }
 
 impl BitcoinSerialize for LegacyTransaction {
@@ -151,10 +149,13 @@ pub struct OutPoint {
 pub fn parse_cli_args(args: &[String]) -> Result<CliCommand, BitcoinError> {
     // TODO: Match args to "send" or "balance" commands and parse required arguments
     match args {
-        [_send, amount, address] => Ok(CliCommand::Send {
-            amount: amount.parse().unwrap(),
-            address: address.clone(),
-        }),
+        [_send, amount, address] => {
+            let amount = u64::from_str(amount).unwrap();
+            Ok(CliCommand::Send {
+                amount,
+                address: address.clone(),
+            })
+        }
         _ => Err(BitcoinError::ParseError("Invalid command".to_string())),
     }
 }
